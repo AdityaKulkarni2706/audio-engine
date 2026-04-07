@@ -1,3 +1,9 @@
 # ninja log v7
-4	383	7972675777441641	CMakeFiles/main.dir/src/main.cpp.obj	d6e9aac575f60a0c
+6	520	7972687570561546	CMakeFiles/main.dir/src/main.cpp.obj	d6e9aac575f60a0c
 385	1215	7972675781306546	main.exe	f76f519171034e68
+20	406	7972688975406835	CMakeFiles/main.dir/src/AudioFileIO.cpp.obj	eda691be91fcbc38
+407	2132	7972688979154496	main.exe	2f6f6bb3e44b5daa
+43	440	7972689102093831	CMakeFiles/main.dir/src/main.cpp.obj	d6e9aac575f60a0c
+440	1552	7972689105997672	main.exe	2f6f6bb3e44b5daa
+5	425	7972690138495934	CMakeFiles/main.dir/src/main.cpp.obj	d6e9aac575f60a0c
+425	1555	7972690142696331	main.exe	2f6f6bb3e44b5daa
