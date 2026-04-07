@@ -1,0 +1,13 @@
+# executables
+*.exe
+*.out
+
+# object files
+
+*.o
+
+# VS Code
+.vscode/
+
+# audio outputs
+output.wav
