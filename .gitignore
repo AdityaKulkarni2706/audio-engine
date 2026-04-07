@@ -3,11 +3,17 @@
 *.out
 
 # object files
-
 *.o
+
+# build files
+/build
 
 # VS Code
 .vscode/
 
-# audio outputs
+# audio
 output.wav
+input.wav
+
+# vcpkg
+vcpkg/
