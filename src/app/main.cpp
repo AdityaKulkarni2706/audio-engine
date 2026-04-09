@@ -34,7 +34,7 @@ int main(){
     auto finalClip = mergeBlocks(blocks);
     std::cout << "Final 10 Samples : \n";
     finalClip.displaySamples(10);
-    fileIo.writeWav("../output.wav", finalClip);
+    fileIo.writeWav("./output.wav", finalClip);
 
     std::cout << "Wrote output.wav\n";
 }
