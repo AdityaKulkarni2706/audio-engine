@@ -67,6 +67,33 @@ build CMakeFiles/main.dir/src/AudioFileIO.cpp.obj: CXX_COMPILER__main_unscanned_
   OBJECT_FILE_DIR = CMakeFiles\main.dir\src
   TARGET_SUPPORT_DIR = CMakeFiles\main.dir
 
+build CMakeFiles/main.dir/src/BlockUtils.cpp.obj: CXX_COMPILER__main_unscanned_Debug C$:/Users/Adi/Documents/audio-engine/src/BlockUtils.cpp || cmake_object_order_depends_target_main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\main.dir\src\BlockUtils.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/Adi/Documents/audio-engine/./src -isystem C:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/include
+  OBJECT_DIR = CMakeFiles\main.dir
+  OBJECT_FILE_DIR = CMakeFiles\main.dir\src
+  TARGET_SUPPORT_DIR = CMakeFiles\main.dir
+
+build CMakeFiles/main.dir/src/Effects/Gain.cpp.obj: CXX_COMPILER__main_unscanned_Debug C$:/Users/Adi/Documents/audio-engine/src/Effects/Gain.cpp || cmake_object_order_depends_target_main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\main.dir\src\Effects\Gain.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/Adi/Documents/audio-engine/./src -isystem C:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/include
+  OBJECT_DIR = CMakeFiles\main.dir
+  OBJECT_FILE_DIR = CMakeFiles\main.dir\src\Effects
+  TARGET_SUPPORT_DIR = CMakeFiles\main.dir
+
+build CMakeFiles/main.dir/src/EffectChain.cpp.obj: CXX_COMPILER__main_unscanned_Debug C$:/Users/Adi/Documents/audio-engine/src/EffectChain.cpp || cmake_object_order_depends_target_main
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\main.dir\src\EffectChain.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/Adi/Documents/audio-engine/./src -isystem C:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/include
+  OBJECT_DIR = CMakeFiles\main.dir
+  OBJECT_FILE_DIR = CMakeFiles\main.dir\src
+  TARGET_SUPPORT_DIR = CMakeFiles\main.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target main
@@ -75,7 +102,7 @@ build CMakeFiles/main.dir/src/AudioFileIO.cpp.obj: CXX_COMPILER__main_unscanned_
 #############################################
 # Link the executable main.exe
 
-build main.exe: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/src/main.cpp.obj CMakeFiles/main.dir/src/AudioFileIO.cpp.obj | C$:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/debug/lib/sndfile.lib
+build main.exe: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/src/main.cpp.obj CMakeFiles/main.dir/src/AudioFileIO.cpp.obj CMakeFiles/main.dir/src/BlockUtils.cpp.obj CMakeFiles/main.dir/src/Effects/Gain.cpp.obj CMakeFiles/main.dir/src/EffectChain.cpp.obj | C$:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/debug/lib/sndfile.lib
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/Adi/Documents/audio-engine/vcpkg/installed/x64-windows/debug/lib/sndfile.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

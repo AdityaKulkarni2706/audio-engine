@@ -1,14 +1,15 @@
 #include "AudioFileIO.h"
+#include "AudioBuffer.h"
 #include <sndfile.h>
 #include <stdexcept>
 
-AudioBuffer AudioFileIO::readWav(const std::string& filePath) {
+AudioClip AudioFileIO::readWav(const std::string& filePath) {
     SF_INFO info{};
     SNDFILE* file = sf_open(filePath.c_str(), SFM_READ, &info);
 
     if (!file) throw std::runtime_error("Failed to open file");
 
-    AudioBuffer buffer;
+    AudioClip buffer;
     buffer.sampleRate = info.samplerate;
     buffer.numChannels = info.channels;
     buffer.numFrames = info.frames;
@@ -21,7 +22,7 @@ AudioBuffer AudioFileIO::readWav(const std::string& filePath) {
     return buffer;
 }
 
-void AudioFileIO::writeWav(const std::string& filePath, const AudioBuffer& buffer) {
+void AudioFileIO::writeWav(const std::string& filePath, const AudioClip& buffer) {
     SF_INFO info{};
     info.samplerate = buffer.sampleRate;
     info.channels = buffer.numChannels;

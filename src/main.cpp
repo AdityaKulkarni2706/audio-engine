@@ -1,14 +1,40 @@
 #include <iostream>
+#include <memory>
+#include "AudioBuffer.h"
 #include "AudioFileIO.h"
+#include "BlockUtils.h"
+#include "Effect.h"
+#include "EffectChain.h"
+#include "./Effects/Gain.h"
 
 int main(){
     AudioFileIO fileIo;
-    AudioBuffer buffer = fileIo.readWav("../input.wav");
+    AudioClip clip = fileIo.readWav("../input.wav");
 
     std::cout << "Loaded file\n";
-    std::cout << "Sample rate: " << buffer.sampleRate << "\n";
+    std::cout << "Sample rate: " << clip.sampleRate << "\n";
+    std::cout << "Initial 10 Samples : \n";
+    clip.displaySamples(10);
 
-    fileIo.writeWav("../output.wav", buffer);
+    constexpr size_t blockSize = 512;
+    auto blocks = splitIntoBlocks(clip, blockSize);
+    
+    EffectChain chain;
+    // add effects to the chain
+    std::unique_ptr<Effect> gain = std::make_unique<Gain>(0.5f);
+
+    chain.addEffect(std::move(gain));
+
+    
+
+    for (auto& block : blocks){
+        chain.process(block);
+    }
+
+    auto finalClip = mergeBlocks(blocks);
+    std::cout << "Final 10 Samples : \n";
+    finalClip.displaySamples(10);
+    fileIo.writeWav("../output.wav", finalClip);
 
     std::cout << "Wrote output.wav\n";
 }

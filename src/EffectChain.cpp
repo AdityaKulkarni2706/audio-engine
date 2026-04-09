@@ -11,7 +11,7 @@ void EffectChain::addEffect(std::unique_ptr<Effect> effectToAdd){
 
 }
 
-void EffectChain::process(AudioBuffer& buffer){
+void EffectChain::process(AudioBlock& buffer){
     
     // Go through each effect and call its process function.
     // effect must modify the audio buffer in place

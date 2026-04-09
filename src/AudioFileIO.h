@@ -5,8 +5,8 @@
 class AudioFileIO{
 
 public:
-    AudioBuffer readWav(const std::string& filePath);
-    void writeWav(const std::string& filePath, const AudioBuffer& buffer);
+    AudioClip readWav(const std::string& filePath);
+    void writeWav(const std::string& filePath, const AudioClip& buffer);
     
 
 

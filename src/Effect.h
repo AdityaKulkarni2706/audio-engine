@@ -4,7 +4,7 @@
 class Effect{
 public:
     virtual ~Effect() = default;
-    virtual void process(AudioBuffer& Buffer) = 0;
+    virtual void process(AudioBlock& Buffer) = 0;
 
     // Every effect must have a process
 };

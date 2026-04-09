@@ -8,6 +8,6 @@ set(CMAKE_TOOLCHAIN_FILE "vcpkg/scripts/buildsystems/vcpkg.cmake"
 project(audio-engine)
 find_package(SndFile CONFIG REQUIRED)
 
-add_executable(main ./src/main.cpp ./src/AudioFileIO.cpp)
+add_executable(main ./src/main.cpp ./src/AudioFileIO.cpp ./src/BlockUtils.cpp ./src/Effects/Gain.cpp ./src/EffectChain.cpp)
 target_include_directories(main PRIVATE ./src)
 target_link_libraries(main PRIVATE SndFile::sndfile)

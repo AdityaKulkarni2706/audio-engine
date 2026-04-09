@@ -7,7 +7,7 @@
 class EffectChain{
 public:
     void addEffect(std::unique_ptr<Effect> effectToAdd);
-    void process(AudioBuffer& buffer);
+    void process(AudioBlock& buffer);
 
 private:
     std::vector<std::unique_ptr<Effect>> effects;
