@@ -7,6 +7,7 @@ public:
     void setSize(int size);
     float read(int delay) const;
     void write(float sample);
+    int getWriteIdx() const;
 
 private:
     std::vector<float> buffer;

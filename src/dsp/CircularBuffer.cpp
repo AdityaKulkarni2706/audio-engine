@@ -6,6 +6,10 @@ void CircularBuffer::reset(){
     writeIdx = 0;
 }
 
+int CircularBuffer::getWriteIdx() const{
+    return writeIdx;
+}
+
 void CircularBuffer::setSize(int size){
     if (size <= 0) {
         throw std::invalid_argument("Buffer size must be greater than 0");

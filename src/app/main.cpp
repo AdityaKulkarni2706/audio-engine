@@ -4,6 +4,7 @@
 #include "../io/AudioFileIO.h"
 #include "../audio/BlockUtils.h"
 #include "../effects/Gain.h"
+#include "../effects/ffDelay.h"
 #include "../audio/AudioProcessor.h"
 
 int main(){
@@ -20,6 +21,7 @@ int main(){
     
     AudioProcessor processor;
     processor.addEffect(std::make_unique<Gain>(0.4f));
+    processor.addEffect(std::make_unique<ffDelay>(22050, 0.9, 44100));
 
     for (auto& block : blocks){
         processor.processBlock(block);
