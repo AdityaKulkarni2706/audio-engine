@@ -43,11 +43,15 @@ target_link_libraries(mainApp PRIVATE AudioEngineLib)
 # Create a test executable containing test files
 add_executable(AudioTests ./src/tests/GainTest.cpp
                         
+                        # Unit Tests
                         
                         ./src/tests/BlockUtilsTest.cpp
                         ./src/tests/CircularBufferTest.cpp
                         ./src/tests/EffectChainTest.cpp
                         ./src/tests/ffDelayTest.cpp 
+
+                        # Integration Tests
+                        
                         # ./src/tests/AudioFileIOTest.cpp
 )               
 
