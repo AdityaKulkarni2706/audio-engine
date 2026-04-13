@@ -23,3 +23,15 @@ TEST(GainTest, HalvesVolumeWhenGainIsPointFive) {
     EXPECT_FLOAT_EQ(block.samples[2], 0.0f);
     EXPECT_FLOAT_EQ(block.samples[3], 0.25f);
 }
+
+TEST(GainTest, NegativeGainInvertsSignal){
+    Gain gainProcessor(-1.0f);
+    AudioBlock block;
+
+    block.samples = {0.5f, -0.3f, 0.0f};
+    gainProcessor.process(block);
+
+    EXPECT_FLOAT_EQ(block.samples[0], -0.5f);
+    EXPECT_FLOAT_EQ(block.samples[1], 0.3f);
+    EXPECT_FLOAT_EQ(block.samples[2], 0.0f);
+}
