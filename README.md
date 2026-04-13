@@ -96,4 +96,17 @@ Padding is taken care of for 3 and 4.
                                                 | + read(delayAmount)    |
                                                 +------------------------+
 ```
+## Level 3: Unit Testing
 
+This engine is unit-tested using Google Test (GTest). The build system separates the execution environment from the testing environment to isolate logic. (Refer to the CMakeLists.txt for more info)
+
+Test Suites Included:
+1) BlockUtilsTest: Verifies that memory slicing, array padding, and phase alignment remain intact when translating between AudioClip and AudioBlock states.
+
+2) CircularBufferTest: Tests memory bounds, index wrapping, and zero-initialization to ensure time-based effects never trigger segmentation faults or read garbage data.
+
+3) GainTest: Validates basic floating-point arithmetic, volume scaling, and phase inversion (negative gain).
+
+4) DelayTest: Ensures feedforward echoes occur at the exact required sample index and carry over between blocks without clicking.
+
+5) EffectChainTest: Validates polymorphic behavior, ensuring audio passes through multiple stacked pointers in the correct chronological sequence.
