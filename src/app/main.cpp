@@ -40,7 +40,7 @@ int main() {
     std::vector<AudioProcessor> processors(channels);
     for (int channel = 0; channel < channels; ++channel) {
         processors[channel].addEffect(std::make_unique<Gain>(1.0f));
-        processors[channel].addEffect(std::make_unique<ffDelay>(15000, 0.1f, 44100));
+        processors[channel].addEffect(std::make_unique<ffDelay>(15000, 1.0f, 44100));
     }
 
     // Process each block independently per channel

@@ -40,7 +40,7 @@ add_executable(mainApp ./src/app/main.cpp)
 # Link main app to Audio Engine Library
 target_link_libraries(mainApp PRIVATE AudioEngineLib)
 
-# Create a test executable containing test files
+# # Create a test executable containing test files
 add_executable(AudioTests ./src/tests/GainTest.cpp
                         
                         # Unit Tests
@@ -51,7 +51,7 @@ add_executable(AudioTests ./src/tests/GainTest.cpp
                         ./src/tests/ffDelayTest.cpp 
 
                         # Integration Tests
-                        
+
                         # ./src/tests/AudioFileIOTest.cpp
 )               
 
