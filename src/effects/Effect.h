@@ -7,5 +7,5 @@ public:
     // Every effect must have a process
     virtual void process(AudioBuffer& Buffer) = 0;
 
-    
+    virtual std::unique_ptr<Effect> clone() const = 0;
 };
