@@ -21,6 +21,7 @@ FetchContent_MakeAvailable(googletest)
 # Audio Engine Library
 
 add_library(AudioEngineLib STATIC
+    ./src/audio/AudioEngine.cpp
     ./src/effects/ffDelay.cpp 
     ./src/dsp/CircularBuffer.cpp 
     ./src/audio/AudioProcessor.cpp 
@@ -35,7 +36,7 @@ target_include_directories(AudioEngineLib PUBLIC ./src)
 # Link library to SndFile
 target_link_libraries(AudioEngineLib PUBLIC SndFile::sndfile)
 
-add_executable(mainApp ./src/app/main.cpp)
+add_executable(mainApp ./src/app/main_engine.cpp)
 
 # Link main app to Audio Engine Library
 target_link_libraries(mainApp PRIVATE AudioEngineLib)

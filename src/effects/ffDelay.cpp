@@ -22,3 +22,6 @@ void ffDelay::process(AudioBuffer& Buffer){
     }
 }
 
+std::unique_ptr<Effect> ffDelay::clone() const{
+    return std::make_unique<ffDelay>(*this); 
+}

@@ -1,6 +1,7 @@
 #include "Effect.h"
 #include "../audio/AudioBuffer.h"
 #include "../dsp/CircularBuffer.h"
+#include <memory>
 
 class ffDelay : public Effect{
 public:
@@ -10,6 +11,7 @@ public:
     }
     void process(AudioBuffer& Buffer) override;
     void setBufferSize(int bufferSize);
+    std::unique_ptr<Effect> clone() const override;
 
 private:
     int delay{0};

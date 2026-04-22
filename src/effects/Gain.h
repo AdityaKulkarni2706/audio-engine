@@ -1,5 +1,6 @@
 #include "Effect.h"
 #include "../audio/AudioBuffer.h"
+#include <memory>
 
 class Gain : public Effect{
 public:

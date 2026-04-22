@@ -8,6 +8,7 @@ class EffectChain{
 public:
     void addEffect(std::unique_ptr<Effect> effectToAdd);
     void process(AudioBuffer& buffer);
+    EffectChain clone() const;
 
 private:
     std::vector<std::unique_ptr<Effect>> effects;

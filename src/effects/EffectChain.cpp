@@ -20,3 +20,11 @@ void EffectChain::process(AudioBuffer& buffer){
         effect->process(buffer);
     }
 }
+
+EffectChain EffectChain::clone() const {
+    EffectChain copy;
+    for (const auto& effect : effects) {
+        copy.addEffect(effect->clone());  // calls Gain::clone(), ffDelay::clone() etc.
+    }
+    return copy;
+}
