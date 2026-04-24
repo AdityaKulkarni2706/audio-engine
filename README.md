@@ -67,4 +67,152 @@ The engine is currently an offline block-based processing system. It is inspired
    3) splitting an AudioBuffer into into smaller buffers (batches) for block-based processing
    4) merging small buffers of audio (batches) into a single AudioBuffer
    These functions allow the engine to mimic the structure of real-time audio processing while still operating offline.
+## DSP Architecture:
+The DSP layer is built around a polymorphic `Effect` interface.
+Each effect implements a `process()` function that modifies `AudioBuffer` in place.
+```
++-----------------------+
+|      AudioEngine      |
+|-----------------------|
+| - input path          |
+| - output path         |
+| - EffectChain         |
+| + addEffect(effect)   |
+| + run()               |
++-----------|-----------+
+            |
+            | owns and applies
+            v
++-----------------------+
+|      EffectChain      |
+|-----------------------|
+| - vector<Effect>      |
+| + addEffect(effect)   |
+| + process(buffer)     |
+| + clone()             |
++-----------|-----------+
+            |
+            | contains
+            v
++-----------------------+
+|   Effect Base Class   |
+|-----------------------|
+| + process(buffer) = 0 |
+| + clone() = 0         |
++-----------|-----------+
+            |
+            | inherited by
+            v
++-----------------------+        +-----------------------+
+|         Gain          |        |        ffDelay         |
+|-----------------------|        |-----------------------|
+| - gainAmount          |        | - CircularBuffer      |
+| + process(buffer)     |        | - delayTime           |
+| + clone()             |        | - mix                 |
++-----------------------+        | + process(buffer)     |
+                                 | + clone()             |
+                                 +-----------|-----------+
+                                             |
+                                             | uses
+                                             v
+                                +------------------------+
+                                |     CircularBuffer     |
+                                |------------------------|
+                                | + write(sample)        |
+                                | + read(delayAmount)    |
+                                | + reset()              |
+                                +------------------------+
+```
+## Effect Processing Model:
+Effects are processed through a linear `EffectChain`.
+Each audio block goes through each effect inside the EffectChain and is modifed in place.
+Having a linear effect chain keeps things simpler for now. In v2.0, it is planned to implement a DAG based effect system which allows for more complicated effects to be tested.
+
+## Why Effects Are Cloned Per Channel:
+Some effects are stateless such as `Gain`. 
+Some effects are stateful such as a feedforward delay aka `ffDelay`.
+
+Being stateful implies that the effect maintains its own memory, and may use samples from the past as an input for some operation.
+Such stateful effects use a `CircularBuffer` to maintain their memory, so it is important that each channel gets its own CircularBuffer. 
+The fundamental idea is that each channel must get its own effect/effectChain. That prevents mix ups due to both channels writing on the same CircularBuffer for example.
+
+To solve this, every effect implements a `clone()` method. AudioEngine can then create independent effect chains for each channel while preserving the same effect order and parameters.
+
+## Included Effects:
+
+1) Gain:
+   `Gain` scales every sample in the buffer by a fixed amount.
+   Example:
+   ```
+   engine.addEffect(std::make_unique<Gain>(0.5f));
+   ```
+2) Feedforward Delay (ffDelay):
+   `ffDelay` is a simple feedforward delay effect.
+   Example:
+   ```
+   engine.addEffect(std::make_unique<ffDelay>(15000, 0.5f, 44100));
+   ```
+   This creates a delayed copy of the signal and mixes it with the original input.
+
+## Project Structure:
+```
+audio-engine/
+│
+├── src/
+│   ├── app/
+│   │   └── main_engine.cpp
+│   │
+│   ├── audio/
+│   │   ├── AudioBuffer.h
+│   │   ├── AudioEngine.h
+│   │   ├── AudioEngine.cpp
+│   │   ├── AudioProcessor.h
+│   │   ├── AudioProcessor.cpp
+│   │   ├── BlockUtils.h
+│   │   └── BlockUtils.cpp
+│   │
+│   ├── dsp/
+│   │   ├── CircularBuffer.h
+│   │   └── CircularBuffer.cpp
+│   │
+│   ├── effects/
+│   │   ├── Effect.h
+│   │   ├── EffectChain.h
+│   │   ├── EffectChain.cpp
+│   │   ├── Gain.h
+│   │   ├── Gain.cpp
+│   │   ├── ffDelay.h
+│   │   └── ffDelay.cpp
+│   │
+│   ├── io/
+│   │   ├── AudioFileIO.h
+│   │   └── AudioFileIO.cpp
+│   │
+│   └── tests/
+│       ├── BlockUtilsTest.cpp
+│       ├── CircularBufferTest.cpp
+│       ├── EffectChainTest.cpp
+│       ├── GainTest.cpp
+│       └── ffDelayTest.cpp
+│
+├── CMakeLists.txt
+└── README.md
+```
+## Build Instructions:
+I am yet to figure this part out. This will be part of v1.2
+
+## Optional Unit Tests:
+These will also be a part of v1.2 which will test the AudioEngine out directly. The individual components have already been tested in v1.0
+
+## Current Limitations:
+This project is still in active development.
+
+Current limitations include:
+
+1) The engine is currently offline, not a real-time audio callback system.
+2) Effects currently process buffers in place.
+3) The included effects are intentionally minimal.
+4) The command-line interface is not yet developed.
+5) The future graph/DAG-based routing system is not part of v1.1 yet.
+6) Some tests may need to be updated after the v1.1 AudioBuffer refactor.
 
